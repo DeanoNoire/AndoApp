@@ -3,4 +3,7 @@
     <string name="hostnameSettingsText">Adresa</string>
     <string name="zprava">Zpráva</string>
     <string name="OK">OK</string>
+    <string name="ngrokText">.ngrok.io</string>
+    <string name="localChipDesc">Localhost</string>
+    <string name="localhostValueHint">192.168.1.127:5000</string>
 </resources>

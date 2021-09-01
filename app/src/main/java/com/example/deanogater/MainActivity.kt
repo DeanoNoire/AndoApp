@@ -15,10 +15,14 @@ class MainActivity : AppCompatActivity() {
 
         val settingsButton = findViewById<ImageButton>(R.id.settingsButton)
 
-        settingsButton.setOnClickListener({
+        settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
-        })
+        }
 
+    }
+
+    fun zjistiStatus(){
+        
     }
 }

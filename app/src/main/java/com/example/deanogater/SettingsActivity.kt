@@ -1,15 +1,12 @@
 package com.example.deanogater
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 
 class SettingsActivity : AppCompatActivity() {
-
-    private var PRAZDNY = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +19,18 @@ class SettingsActivity : AppCompatActivity() {
         val zpravaEditText = findViewById<EditText>(R.id.zpravaSettingsEdit)
         zpravaEditText.setText(sharedPreferences.getString("Zprava",""), TextView.BufferType.EDITABLE)
 
-        val saveSettingsButton = findViewById<Button>(R.id.saveSettingsButton)
 
+        val saveSettingsButton = findViewById<Button>(R.id.saveSettingsButton)
+        saveSettingsButton.setOnClickListener {
+            val editor = sharedPreferences.edit()
+            editor.putString("Hostname", hostnameEditText.text.toString())
+            editor.putString("Zprava", zpravaEditText.text.toString())
+            editor.apply()
+            finish()
+            Toast.makeText(this,"Uloženo",Toast.LENGTH_SHORT).show()
+
+            super.onBackPressed();
+
+        }
     }
 }
