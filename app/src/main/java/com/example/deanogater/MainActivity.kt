@@ -3,16 +3,18 @@ package com.example.deanogater
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import android.media.Image
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import kotlinx.coroutines.*
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import org.jsoup.Jsoup
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers.IO
+
 
 class MainActivity : AppCompatActivity() {
+
+    val MAIN_URL = "http://nightingales.clanweb.eu"
 
 
 
@@ -20,56 +22,112 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val settingsButton = findViewById<ImageButton>(R.id.settingsButton)
-        val garageStateText = findViewById<TextView>(R.id.GarageStatusText)
-
-
         settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
 
-
-
-
-        GlobalScope.launch(){
-            val garageStateString = zjistiStatus()
-            changeGaragestate(garageStateString)
-        }
-        
-        fun changeGarageState(input: String){
-            garageStateText.text = input
+        restartScrap.setOnClickListener {
+            restartScrap.visibility = INVISIBLE
+            mainCoroutine()
         }
 
+        mainCoroutine()
 
-/*
-        CoroutineScope(IO).launch {
-            setTextOnMainThread()
+    }
+
+    private fun mainCoroutine() {
+        CoroutineScope(IO).launch() {
+            try {
+                repeat(300) {
+                    zjistiStatus()
+                    delay(2000L)
+                }
+            } finally {
+                println("Dojeto")
+                zviditelniRestartScrap()
+            }
+
         }
     }
 
-    private suspend fun setTextOnMainThread(){
-    withContext(Main){
-       garageStateText.text = zjistiStatus()
-    }
-        */
-
-
+    private suspend fun zviditelniRestartScrap(){
+        withContext (Main) {
+          restartScrap.visibility = VISIBLE
+        }
     }
 
-    private fun changeGaragestate(garageStateString: String) {
-
+    private fun prepisTextView(statusGarage: String, statusGate: String){
+        GarageStatusText.text = statusGarage
+        GateStatusText.text = statusGate
     }
 
-    private suspend fun zjistiStatus() : String {
-        delay(1000)
-        //val url = "http://nightingales.clanweb.eu/pureStates.php"
-        //val document = Jsoup.connect(url).get()
-       //val status = document.select("#sgarage").first().text()
-        val status = "PRDEL"
-        println("Status "+status)
-        return status
+    private fun tickOnMain(procent: Int){
+        tickerProgressBar.progress = procent
     }
+
+    private fun gateImageSwapper(gateChange: Int, garageChange: Int,statusGate :String,statusGarage: String){
+        if (gateChange == 1){
+            val resName = "gat"+statusGate
+            val idGate = resources.getIdentifier(resName, "drawable",packageName)
+            println(packageName+" "+resName+" "+idGate)
+            gateImage.setImageResource(idGate)
+
+        }
+
+        if (garageChange == 1){
+            val resName = "gar"+statusGarage
+            val idGarage = resources.getIdentifier(resName, "drawable",packageName)
+            println(packageName+" "+resName+" "+idGarage)
+            garageImage.setImageResource(idGarage)
+
+        }
+    }
+
+    private fun checkChangeGarage(status: String): Int {
+        val curr = GarageStatusText.text
+        println("GARAGE: Current: "+curr+" New:"+status)
+        return if(curr == status){
+            0
+        } else 1
+    }
+
+    private fun checkChangeGate(status: String): Int {
+        val curr = GateStatusText.text
+        println("GATE: Current: "+curr+" New:"+status)
+        return if(curr == status){
+            0
+        } else 1
+    }
+
+
+
+
+    private suspend fun setTextOnMainThread(statusGarage: String, statusGate: String) {
+        withContext (Main) {
+            val gateChange = checkChangeGate(statusGate)
+            val garageChange = checkChangeGarage(statusGarage)
+            gateImageSwapper(gateChange,garageChange,statusGate,statusGarage)
+            prepisTextView(statusGarage,statusGate)
+            tick()
+        }
+    }
+
+    private suspend fun zjistiStatus() {
+       val url = "$MAIN_URL/pureStates.php"
+       val document = Jsoup.connect(url).get()
+       val statusGarage = document.select("#sgarage").first().text()
+        val statusGate = document.select("#sgate").first().text()
+        //  println("Status Garage $statusGarage Status Gate $statusGate")
+        setTextOnMainThread(statusGarage,statusGate)
+    }
+
+    private suspend fun tick(){
+        tickOnMain(100)
+        delay(200L)
+        tickOnMain(0)
+    }
+
 
 
 }

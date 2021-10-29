@@ -16,18 +16,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/gar0" />
+        app:layout_constraintVertical_bias="0.527"
+        app:srcCompat="@drawable/gar69" />
 
     <ImageView
         android:id="@+id/gateImage"
         android:layout_width="213dp"
         android:layout_height="254dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="88dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/gat0" />
+        app:srcCompat="@drawable/gat69" />
 
     <ImageButton
         android:id="@+id/settingsButton"
@@ -45,11 +45,47 @@
         android:id="@+id/GarageStatusText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="40dp"
+        android:text="69"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/garageImage" />
+
+    <TextView
+        android:id="@+id/GateStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="40dp"
+        android:text="69"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/GarageStatusText"
+        app:layout_constraintTop_toBottomOf="@+id/garageImage" />
+
+    <ProgressBar
+        android:id="@+id/tickerProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="348dp"
+        android:layout_height="8dp"
+        android:progress="0"
+        android:progressTint="@color/cardview_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/restartScrap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gateImage"
+        app:layout_constraintVertical_bias="0.058"
+        app:srcCompat="@android:drawable/ic_media_play" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
