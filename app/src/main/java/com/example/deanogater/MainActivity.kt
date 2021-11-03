@@ -1,5 +1,6 @@
 package com.example.deanogater
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -16,11 +17,14 @@ class MainActivity : AppCompatActivity() {
 
     val MAIN_URL = "http://nightingales.clanweb.eu"
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sharedPreferences = getSharedPreferences("PRIPOJENI", Context.MODE_PRIVATE)
+        val garagePin = sharedPreferences.getString("GARAGEPIN", "")
+        val gatePin = sharedPreferences.getString("GATEPIN", "")
+
 
         settingsButton.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
@@ -30,6 +34,20 @@ class MainActivity : AppCompatActivity() {
         restartScrap.setOnClickListener {
             restartScrap.visibility = INVISIBLE
             mainCoroutine()
+        }
+
+        gateImage.setOnClickListener{
+            println(gatePin)
+            if (gatePin != null) {
+                zmenStav(1, gatePin, this, MAIN_URL)
+            }
+        }
+
+        garageImage.setOnClickListener{
+            println(garagePin)
+            if (garagePin != null) {
+                zmenStav(2, garagePin, this, MAIN_URL)
+            }
         }
 
         mainCoroutine()
@@ -70,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         if (gateChange == 1){
             val resName = "gat"+statusGate
             val idGate = resources.getIdentifier(resName, "drawable",packageName)
-            println(packageName+" "+resName+" "+idGate)
+            println("$packageName $resName $idGate")
             gateImage.setImageResource(idGate)
 
         }
@@ -78,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         if (garageChange == 1){
             val resName = "gar"+statusGarage
             val idGarage = resources.getIdentifier(resName, "drawable",packageName)
-            println(packageName+" "+resName+" "+idGarage)
+            println("$packageName $resName $idGarage")
             garageImage.setImageResource(idGarage)
 
         }
@@ -86,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkChangeGarage(status: String): Int {
         val curr = GarageStatusText.text
-        println("GARAGE: Current: "+curr+" New:"+status)
+        println("GARAGE: Current: $curr New:$status")
         return if(curr == status){
             0
         } else 1
@@ -94,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkChangeGate(status: String): Int {
         val curr = GateStatusText.text
-        println("GATE: Current: "+curr+" New:"+status)
+        println("GATE: Current: $curr New:$status")
         return if(curr == status){
             0
         } else 1

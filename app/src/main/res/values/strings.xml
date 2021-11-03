@@ -6,4 +6,8 @@
     <string name="ngrokText">.ngrok.io</string>
     <string name="localChipDesc">Localhost</string>
     <string name="localhostValueHint">192.168.1.127:5000</string>
+    <string name="garagePINText">Garage PIN</string>
+    <string name="gatePINText">Gate PIN</string>
+    <string name="garagePINHint">Set garage PIN</string>
+    <string name="gatePINHint">Set gate PIN</string>
 </resources>

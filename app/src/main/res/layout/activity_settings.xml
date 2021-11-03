@@ -8,24 +8,27 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/zpravaText"
-        android:layout_width="46dp"
-        android:layout_height="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/hostnameSettingsText"
+        android:id="@+id/gatePINTextView"
+        android:layout_width="94dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/gatePINText"
+        android:textAlignment="center"
         android:textColor="@color/teal_700"
-        app:layout_constraintBottom_toTopOf="@+id/zpravaSettingsEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="@string/zprava" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/gatePINEdit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/zpravaSettingsEdit"
-        android:layout_width="374dp"
+        android:id="@+id/gatePINEdit"
+        android:layout_width="263dp"
         android:layout_height="53dp"
-        android:layout_marginBottom="272dp"
+        android:layout_marginBottom="328dp"
         android:background="@color/white"
         android:ems="10"
+        android:hint="@string/gatePINHint"
         android:importantForAutofill="no"
         android:inputType="number"
         android:textColor="@color/black"
@@ -36,58 +39,46 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <TextView
-        android:id="@+id/hostnameSettingsView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/hostnameSettingsText"
-        android:textColor="@color/teal_700"
-        app:layout_constraintBottom_toTopOf="@+id/hostnameSettingsEdit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.763" />
-
     <EditText
-        android:id="@+id/hostnameSettingsEdit"
-        android:layout_width="258dp"
+        android:id="@+id/garagePINEdit"
+        android:layout_width="263dp"
         android:layout_height="53dp"
-        android:layout_marginBottom="174dp"
+        android:layout_marginBottom="44dp"
         android:background="@color/white"
         android:ems="10"
+        android:hint="@string/garagePINHint"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:singleLine="true"
+        android:inputType="number"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/zpravaText"
-        app:layout_constraintEnd_toStartOf="@+id/ngrokText"
-        app:layout_constraintHorizontal_bias="0.555"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/gatePINTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/ngrokText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="76dp"
-        android:text="@string/ngrokText"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/zpravaText"
+        android:id="@+id/garagePINTextView"
+        android:layout_width="99dp"
+        android:layout_height="26dp"
+        android:text="@string/garagePINText"
+        android:textAlignment="center"
+        android:textColor="@color/teal_700"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/garagePINEdit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.214"
-        tools:text=".ngrok.io" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/saveSettingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/OK"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

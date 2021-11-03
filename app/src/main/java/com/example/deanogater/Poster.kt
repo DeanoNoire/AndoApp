@@ -3,32 +3,39 @@ package com.example.deanogater
 import android.content.Context
 import android.util.Log
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-class Poster {
 
-    fun zmenStav(typ: Int, context: Context, url: String) {
-        val queue = Volley.newRequestQueue(context)
+
+
+    fun zmenStav(typ: Int, pin: String, context: Context, url: String) {
+        val requestQueue = Volley.newRequestQueue(context)
         var urlX = ""
         if (typ == 1) {
-            urlX = "http://nightingales.clanweb.eu/doGate.php"
+            urlX = "$url/doGate.php"
         }
 
+        if (typ == 2) {
+            urlX = "$url/doGarage.php"
+        }
 
-//        val stringRequest = StringRequest(Request.Method.GET, urlX,
-//            { response ->
-//                var strResp = response.toString()
-//        Log.d(strResp)
-//        },
-//            { Log.d("Nefunguje") }
-//            )
-//        queue.add(stringRequest)
+        val parameters: MutableMap<String, String> = HashMap()
+        parameters["pin"] = pin
 
-//
+        val strReq = object : StringRequest(
+            Request.Method.POST, urlX,
+            { response ->  Log.d("POSTER", "response: $response")},
+            { error ->Log.d("POSTER",  "error: $error") }
+        )
+
+        {
+            override fun getParams(): MutableMap<String, String>{
+                return parameters;
+            }
+        }
+
+        requestQueue.add(strReq)
 
     }
-}
+
